@@ -79,19 +79,35 @@ class _GaleriaPageState extends State<GaleriaPage> {
             ),
             //Posiçã onde dentro do Stacj este ekeneti vai ficar
             Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
               child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.55),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 child: Column(
                   children: [
-                    Text(nome),
+                    Text(nome, style: TextStyle(color: Colors.white)),
                     Row(
                       children: [
                         Icon(
                           Icons.location_on,
                           color: Colors.limeAccent,
-                              size: 14,
-                            ),
-                            SizedBox(width: 2),
-                        Expanded(child: Text(local)),
+                          size: 14,
+                        ),
+                        SizedBox(width: 2),
+                        Expanded(
+                          child: Text(
+                            local,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ],
                     ),
                   ],
