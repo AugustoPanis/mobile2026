@@ -1,9 +1,11 @@
 import 'dart:js_interop';
 
-import 'package:aula02/screen/segunda_page.dart';
+import 'package:aula02/screen/galeria_page.dart';
 import 'package:aula02/screen/terceira_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../components/meuDrawer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -13,14 +15,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double _counter = 0;
   double _counter2 = 0;
+  double _counter = 0;
   double _resultado = 0;
   String _operacao = "Operação";
+  String _num = "";
 
-  void _incrementCounter() {
+  void _adicionarNumero( String valor) {
     setState(() {
-      _counter++;
+      _num += valor;
+    });
+  }
+  void _incrementCounter( ) {
+    setState(() {
     });
   }
 
@@ -80,42 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.amber, title: Text(widget.title)),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyHomePage(title: "Principal"),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text("Segunda Tela"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SegundaPage()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text("Terceira Tela"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TerceiraPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-
+      drawer: MenuDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: .center,
@@ -135,25 +107,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                SizedBox(width: 50.0),
-                Text(
-                  '$_operacao',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                SizedBox(width: 50.0),
-                Text(
-                  '$_counter2',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ],
+            Container(
+              height: 100,
+              width: double.infinity,
+              padding: const EdgeInsets.all(16.0),
+              color: Colors.grey,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Text(
+                      '$_num',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -163,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-                    _incrementCounter();
+                    _adicionarNumero('1');
                   },
                   child: Text('1'),
                 ),
@@ -173,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     backgroundColor: Colors.red,
                   ),
                   onPressed: () {
-                    _decrementCounter();
+                    _adicionarNumero('2');
                   },
                   child: Text('2'),
                 ),
@@ -183,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     backgroundColor: Colors.red,
                   ),
                   onPressed: () {
-                    _decrementCounter();
+                    _adicionarNumero('3');
                   },
                   child: Text('3'),
                 ),
@@ -229,6 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             SizedBox(height: 20),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -311,11 +289,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
 
-            const Text('Resultado'),
-            Text(
-              '$_resultado',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
